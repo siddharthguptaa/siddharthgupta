@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Theme colors: edit these to re-theme the whole site ---------- */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --ink: #101828;
+  --muted: #4b5870;
+  --line: #d3dae5;
+  --accent: #1f4fd8;
+  --on-accent: #ffffff;
+  --signal: #e39b0b;
+  color-scheme: light;
+}
+.dark {
+  --bg: #0e1422;
+  --surface: #161e31;
+  --ink: #e9edf5;
+  --muted: #a2aec4;
+  --line: #29344d;
+  --accent: #7c9bff;
+  --on-accent: #0e1422;
+  --signal: #f2b84b;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 84px);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg font-body text-[1.0625rem] leading-relaxed text-ink;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+/* ---------- Hero illustration (SVG parts that Tailwind can't express well) ---------- */
+.art-glow::before {
+  content: '';
+  position: absolute;
+  inset: 6% 0 22%;
+  background: radial-gradient(closest-side, var(--accent), transparent);
+  opacity: 0.18;
+  filter: blur(14px);
+}
+.spine {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 4 7;
+  opacity: 0.6;
+  animation: flow 1.6s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+.layer {
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.22s ease;
+}
+.layer .top {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: fill 0.2s ease;
+}
+.layer .sl {
+  fill: var(--accent);
+  opacity: 0.55;
+}
+.layer .sr {
+  fill: var(--accent);
+  opacity: 0.85;
+}
+.layer .lt {
+  fill: var(--ink);
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  pointer-events: none;
+  transition: fill 0.2s ease;
+}
+.layer:hover,
+.layer.is-sel {
+  transform: translateY(-8px);
+}
+.layer.is-sel .top {
+  fill: var(--accent);
+}
+.layer.is-sel .lt {
+  fill: var(--on-accent);
+}
+.layer:focus-visible .top {
+  stroke: var(--signal);
+  stroke-width: 4;
+}
+
+/* Contact decoration */
+.wire {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 5 7;
+  animation: flow 1.6s linear infinite;
+}
+
+/* Services accordion plus/minus */
+.plus::after {
+  content: '+';
+}
+details[open] .plus::after {
+  content: '–';
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .spine,
+  .wire {
+    animation: none;
+  }
+  .layer {
+    transition: none;
+  }
+  .layer:hover,
+  .layer.is-sel {
+    transform: none;
+  }
+}
+
+/* ---------- Background pictures ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, var(--line) 1.2px, transparent 1.7px);
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0.3));
+  mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0.3));
+}
+.blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+}
+.b1 { width: 46vw; height: 46vw; left: -12vw; top: -12vw; background: var(--accent); opacity: 0.17; }
+.b2 { width: 38vw; height: 38vw; right: -12vw; top: 40vh; background: var(--signal); opacity: 0.1; }
+
+.motif {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  top: 84px;
+  width: min(300px, 46vw);
+  height: auto;
+  color: var(--accent);
+  opacity: 0.12;
+  pointer-events: none;
+  will-change: transform;
+}
+.motif * { vector-effect: non-scaling-stroke; }
+.spin { transform-box: fill-box; transform-origin: center; animation: spin 70s linear infinite; }
+.spin.rev { animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.floaters {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 50%;
+  width: min(100%, 340px);
+  aspect-ratio: 320 / 300;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.glyph { position: absolute; will-change: transform; }
+.gi {
+  display: grid;
+  place-items: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font: 700 0.95rem 'Bricolage Grotesque', system-ui, sans-serif;
+  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.1);
+  pointer-events: auto;
+  animation: bob 5.5s ease-in-out infinite;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.gi:hover { transform: scale(1.14) rotate(-6deg); background: var(--accent); color: var(--on-accent); }
+.glyph:nth-child(2) .gi { animation-delay: -1.2s; }
+.glyph:nth-child(3) .gi { animation-delay: -2.4s; }
+.glyph:nth-child(4) .gi { animation-delay: -3.1s; }
+.glyph:nth-child(5) .gi { animation-delay: -4.2s; }
+.glyph:nth-child(6) .gi { animation-delay: -0.6s; }
+@keyframes bob { 50% { translate: 0 -9px; } }
+
+@media (max-width: 760px) {
+  .motif { opacity: 0.08; top: 64px; }
+  .gi { min-width: 40px; height: 40px; font-size: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spin, .gi { animation: none; }
+  .blob, .glyph, .motif { transform: none !important; }
+}
+
+/* ---------- Floating WhatsApp button ---------- */
+.wa-fab {
+  position: fixed;
+  z-index: 30;
+  right: calc(18px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #18924f;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.28);
+  transition: transform 0.2s ease;
+}
+.wa-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #18924f;
+  animation: ring 2.6s ease-out infinite;
+}
+.wa-fab:hover,
+.wa-fab:focus-visible {
+  transform: translateY(-3px) scale(1.06);
+}
+.wa-fab::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 8px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+.wa-fab:hover::after,
+.wa-fab:focus-visible::after {
+  opacity: 1;
+}
+@keyframes ring {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(1.7); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-fab::before { animation: none; opacity: 0; }
+  .wa-fab { transition: none; }
+  .wa-fab:hover, .wa-fab:focus-visible { transform: none; }
+}
+
+/* ---------- Call section: flashes when you arrive from the header phone icon ---------- */
+.callbox:target,
+.msgbox:target {
+  animation: flash 1.8s ease-out;
+}
+@keyframes flash {
+  0% { outline: 3px solid var(--accent); outline-offset: 4px; }
+  100% { outline: 3px solid transparent; outline-offset: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .callbox:target,
+  .msgbox:target { animation: none; }
+}
+
+/* ---------- Fixed navigation bar ---------- */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+@supports (backdrop-filter: blur(1px)) and (background: color-mix(in srgb, red, blue)) {
+  .topbar {
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+/* Covers the phone's notch area above the bar so content does not show through it. */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--bg);
+  z-index: 39;
+  pointer-events: none;
+}
