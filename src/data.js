@@ -35,7 +35,7 @@ export const PHOTOS = {
 export const ABOUT = [
   'I’m Siddharth, a full-stack developer in Noida with 5+ years of experience building React and .NET applications for fintech and automotive teams.',
   'I like to lead a project from the first requirement to the last release: I learn the business, set the architecture, build the APIs, and keep the team and the client on the same page.',
-  'I’m good at looking after clients, and I’m open to freelance projects and full-time roles. If you have a problem to solve, send me a message.',
+  'I’m good at looking after clients, and I’m open to solve any kind of business problems. If you have a problem to solve, send me a message.',
 ];
 
 export const PROFILE = {
@@ -56,7 +56,7 @@ export const HERO = {
   after: ', then into working software.',
   intro:
     'I’m a full-stack developer in Noida working in fintech and automotive. I like a messy business problem: I reduce it to rules anyone can check, then build the React and .NET application that carries them out. I’ve shipped since 2020 and led offshore teams as a senior engineer.',
-  status: 'Open to freelance projects and full-time roles.',
+  status: 'I look forward to learning more about your business challenges and discussing potential solutions.',
   proof: {
     stats: [
       { value: '500,000+', label: 'users' },
