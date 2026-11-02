@@ -50,9 +50,13 @@ This creates a `dist` folder containing the complete website.
 - A few things Tailwind does not express well, such as the animated SVG illustration and the plus/minus on the services accordion, are plain CSS in `src/index.css`.
 - No images are loaded. Icons are drawn in code (`src/components/Icon.jsx`).
 
+## Publish on GitLab Pages
+
+Push this project to a GitLab project. The included `.gitlab-ci.yml` builds the site and publishes it. When the pipeline turns green, open **Deploy > Pages** (older GitLab: **Settings > Pages**) to see your address.
+
 ## Search (SEO)
 
-- **Your site address** appears in `index.html` (canonical, social tags, structured data), `public/robots.txt` and `public/sitemap.xml`. It is currently `https://siddharthguptaa.github.io/`. If your real address is different, replace it in those four places.
+- **Your site address** appears in `index.html` (canonical, social tags, structured data), `public/robots.txt` and `public/sitemap.xml`. It is currently `https://siddharthguptaa.github.io/siddharthgupta/`. If your real address is different, replace it in those four places.
 - `public/og-image.png` is the picture shown when the link is shared on LinkedIn or WhatsApp.
 - The `<noscript>` block in `index.html` repeats your key text for crawlers that do not run JavaScript. If you change content in `src/data.js`, update it there too.
 - After the site is live, add it in Google Search Console, submit `sitemap.xml`, and request indexing.

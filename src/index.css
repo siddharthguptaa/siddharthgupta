@@ -336,3 +336,38 @@ body::before {
   z-index: 39;
   pointer-events: none;
 }
+
+/* ---------- Back to top button ---------- */
+.totop {
+  position: fixed;
+  z-index: 30;
+  right: calc(25px + env(safe-area-inset-right, 0px));
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s, background 0.2s ease, color 0.2s ease;
+}
+.totop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.totop:hover,
+.totop:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .totop { transition: none; }
+}

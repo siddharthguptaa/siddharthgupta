@@ -12,6 +12,7 @@ import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 import Background from './components/Background.jsx';
 import WhatsAppFab from './components/WhatsAppFab.jsx';
+import BackToTop from './components/BackToTop.jsx';
 import { useParallax } from './hooks.js';
 
 const AUTO_PREFIX = 'I’d like to talk about: ';
@@ -54,6 +55,7 @@ export default function App() {
         <Contact message={message} setMessage={setMessage} />
       </main>
       <Footer />
+      <BackToTop />
       <WhatsAppFab />
     </>
   );
